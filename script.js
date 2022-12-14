@@ -1,5 +1,6 @@
 
 const board = document.querySelector('.board')
+const reset = document.querySelector('.reset')
 
 //Coordinates for chess board
 let blocks = [];
@@ -22,17 +23,25 @@ const boxs = document.querySelectorAll('.box')
 
 boxs.forEach(box => {
     box.addEventListener('click', () => {
+        boxs.forEach(box => {
+            box.setAttribute('style', 'background:#f0f0f0')
+        })
         const id = box.getAttribute('id')
         const valid = findKnightPositions(parseInt(id[0]), parseInt(id[1]))
         setColors(valid)
     })
 });
 
+reset.addEventListener('click', () => {
+    boxs.forEach(box => {
+        box.setAttribute('style', 'background:#f0f0f0')
+    })
+})
+
 function setColors(data) {
     data.forEach(coor => {
         const id = coor.join('')
         const box = document.getElementById(id)
-        console.log(box)
         box.setAttribute('style', 'background: red;');
     });
 }

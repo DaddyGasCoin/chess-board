@@ -16,3 +16,48 @@ for (let i = 0; i < 8; i++) {
         board.appendChild(box)
     }
 }
+
+
+const boxs = document.querySelectorAll('.box')
+
+boxs.forEach(box => {
+    box.addEventListener('click', () => {
+        const id = box.getAttribute('id')
+        const valid = findKnightPositions(parseInt(id[0]), parseInt(id[1]))
+        setColors(valid)
+    })
+});
+
+function setColors(data) {
+    data.forEach(coor => {
+        const id = coor.join('')
+        const box = document.getElementById(id)
+        console.log(box)
+        box.setAttribute('style', 'background: red;');
+    });
+}
+
+//check if position is valid
+function isValid(x, y) {
+    return x >= 0 && x < 8 && y >= 0 && y < 8;
+}
+
+function findKnightPositions(x, y) {
+
+    // all possible moves for a knigh
+    const moves = [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]];
+
+    const positions = [];
+
+    // check if move is valid
+    moves.forEach(move => {
+        const newX = x + move[0];
+        const newY = y + move[1];
+
+        if (isValid(newX, newY)) {
+            positions.push([newX, newY]);
+        }
+    });
+
+    return positions;
+}
